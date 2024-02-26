@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1078983616450",
+    "project_id": "translink-app-43f28",
+    "storage_bucket": "translink-app-43f28.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1078983616450:android:97e8bb7e0de19caecad85b",
+        "android_client_info": {
+          "package_name": "com.example.translink_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCsKbIBHTaV9XAOVGqDgWviNEbodNydW8s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
