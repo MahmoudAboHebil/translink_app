@@ -23,10 +23,34 @@ class UserInfoRepo {
     return isExist;
   }
 
-  void addUserInfo(UserInfoModel userInfo) async {
+  Future<void> addUserInfo(UserInfoModel userInfo) async {
     try {
       var userDoc = _authService.getUsersInfoCollection();
-      userDoc.doc(userInfo.email).set(userInfo.toDocument());
+      await userDoc.doc(userInfo.email).set(userInfo.toDocument());
+    } catch (e) {
+      throw Exception(
+          '${e.toString()} ,\n Error in UserInfoRepo class (addUserInfo) method');
+    }
+  }
+
+  Future<void> updateUserInfo(
+    UserInfoModel currentInfo,
+    bool? pinCode,
+    String email,
+    String? userName,
+    String? firstName,
+    String? lastName,
+    DateTime? createdTime,
+  ) async {
+    try {
+      var userDoc = _authService.getUsersInfoCollection();
+      await userDoc.doc(email).update({
+        'pinCode': pinCode ?? currentInfo.pinCode,
+        'userName': userName ?? currentInfo.userName,
+        'firstName': firstName ?? currentInfo.firstName,
+        'lastName': lastName ?? currentInfo.lastName,
+        'createdTime': createdTime ?? currentInfo.createdTime,
+      });
     } catch (e) {
       throw Exception(
           '${e.toString()} ,\n Error in UserInfoRepo class (addUserInfo) method');

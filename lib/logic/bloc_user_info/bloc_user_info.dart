@@ -15,8 +15,34 @@ class BlocUserInfo extends Bloc<BlocUserInfoEvent, BlocUserInfoState> {
       try {
         emit(LoadingUserInfo());
         UserInfoModel userInfoModel =
-            await userInfoRepo.getUserInfo(event.userName);
+            await userInfoRepo.getUserInfo(event.email);
         emit(LoadedUserInfo(userInfo: userInfoModel));
+      } catch (e) {
+        emit(ErrorUserInfo(massage: e.toString()));
+      }
+    });
+    on<UserInfoAdd>((event, emit) async {
+      emit(LoadingUserInfo());
+      try {
+        await userInfoRepo.addUserInfo(event.userInfoModel);
+        emit(AddedUserInfo(isAdded: true));
+      } catch (e) {
+        emit(AddedUserInfo(isAdded: false));
+      }
+    });
+    on<UserInfoUpdate>((event, emit) async {
+      emit(LoadingUserInfo());
+      try {
+        await userInfoRepo.updateUserInfo(
+          event.currentInfo,
+          event.pinCode,
+          event.email,
+          event.userName,
+          event.firstName,
+          event.lastName,
+          event.createdTime,
+        );
+        emit(UpdatedUserInfo());
       } catch (e) {
         emit(ErrorUserInfo(massage: e.toString()));
       }
